@@ -8,4 +8,4 @@ Description: QMI Framework - Qualcomm Messaging Interface
 Version: @VERSION@
 Requires:
 Libs: -L${libdir} -lqcci -lqcsi -lqencdec -lqmi_common
-Cflags: -I${includedir}
+Cflags: -I${includedir}/qmi_framework
