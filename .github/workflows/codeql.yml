@@ -37,9 +37,14 @@ jobs:
           libncurses-dev flex bison \
           wget xz-utils build-essential bc
 
+    - name: Download Arm GNU Toolchain
+      run: |
+        wget --tries=3 --waitretry=5 --timeout=30 https://developer.arm.com/-/media/Files/downloads/gnu-a/8.3-2019.03/binrel/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu.tar.xz
+        tar xf gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu.tar.xz
+
     - name: Download and extract Linux kernel source
       run: |
-        wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.198.tar.xz
+        wget --tries=3 --waitretry=5 --timeout=30 https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.198.tar.xz
         tar -xf linux-5.10.198.tar.xz
         cd linux-5.10.198
         make mrproper
@@ -56,7 +61,7 @@ jobs:
       shell: bash
       name: Set Up Build Environment and Compile
       run: |
-        export PATH="$PWD/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu/bin/:$PATH"
+        export PATH="$PWD/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/:$PATH"
         export CC=aarch64-linux-gnu-gcc
         export CXX=aarch64-linux-gnu-g++
         export C_INCLUDE_PATH="$GITHUB_WORKSPACE/linux-headers/include"
